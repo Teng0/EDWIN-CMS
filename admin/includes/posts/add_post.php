@@ -1,27 +1,4 @@
-<?php
-        if ( isset($_POST['submit'])){
-           $post_image = $_FILES['post_image']['name'];
-           $post_temp_image = $_FILES['post_image']['tmp_name'];
-           $post_date = date('Y-m-d');
-           $post_commentary_count = 5;
-           $post_status = 'draft';
-           //move_uploaded_file($post_temp_image,"../images/$post_image");
-            echo $post_date;
-        }
-
-        $query = "INSERT INTO posts(post_category_id,post_title,post_author,post_date,post_image,post_content,post_tags,post_comment_count,post_status) ";
-        $query .="VALUES({$_POST['post_category_id']},'{$_POST['post_title']}','{$_POST['post_author']}',$post_date, ";
-        $query .= "'{$post_image}','{$_POST['post_content']}', '{$_POST['post_tags']}' ,{$post_commentary_count},'{$post_status}' )";
-
-        $res = mysqli_query($connection, $query);
-        if ( !$res){
-            echo mysqli_error($connection);
-        }
-        else{
-            header("Location: posts.php?source=post_all");
-        }           
-
-?>
+<?php confirm_query() ?>
 
 <form action="" method="post" enctype="multipart/form-data">
     <div class="form-group">
