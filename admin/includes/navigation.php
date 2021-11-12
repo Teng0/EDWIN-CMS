@@ -148,7 +148,7 @@
 <!--                <a href="forms.html"><i class="fa fa-fw fa-edit"></i> Forms</a>-->
 <!--            </li>-->
             <li>
-                <a href="categories/categories.php"><i class="fa fa-fw fa-desktop"></i> Categories</a>
+                <a href="categories.php"><i class="fa fa-fw fa-desktop"></i> Categories</a>
             </li>
             <li>
                 <a href="bootstrap-grid.html"><i class="fa fa-fw fa-wrench"></i> Bootstrap Grid</a>
@@ -157,10 +157,10 @@
                 <a href="javascript:;" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-arrows-v"></i> Posts <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="demo2" class="collapse">
                     <li>
-                        <a href="./posts.php">View All Posts</a>
+                        <a href="posts.php?source=post_all">View All Posts</a>
                     </li>
                     <li>
-                        <a href="#">Add Post</a>
+                        <a href="posts.php?source=post_add">Add Post</a>
                     </li>
                 </ul>
             </li>

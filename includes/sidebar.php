@@ -28,7 +28,6 @@
             <div class="col-lg-12">
                 <ul class="list-unstyled">
                     <?php
-
                     $query = "SELECT * FROM categories";
                     $select_all_cat_to_sidebar = mysqli_query($connection,$query);
 
@@ -36,7 +35,6 @@
                         echo "<li> <a href=''>".$row['cat_title']. "</a><li>";
                     }
                     ?>
-
 
                 </ul>
             </div>
