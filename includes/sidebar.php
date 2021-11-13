@@ -32,7 +32,7 @@
                     $select_all_cat_to_sidebar = mysqli_query($connection,$query);
 
                     while ($row = mysqli_fetch_assoc($select_all_cat_to_sidebar)){
-                        echo "<li> <a href=''>".$row['cat_title']. "</a><li>";
+                        echo "<li> <a href='categories.php?c_id={$row['cat_id']}'>".$row['cat_title']. "</a><li>";
                     }
                     ?>
 

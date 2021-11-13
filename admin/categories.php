@@ -1,7 +1,6 @@
 <?php
 include "includes/header.php";
 include_once "../includes/db.php";
-include "funcitons.php";
 include "functions/category/functions.php";
 include "functions/posts/functions.php";
 ?>
