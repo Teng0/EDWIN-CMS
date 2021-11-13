@@ -10,6 +10,9 @@ switch ($source) {
     case 'post_add';
         include "includes/posts/add_post.php";
         break;
+    case 'post_edit';
+        include "includes/posts/edit_post.php";
+        break;
     default:'post_all';
 }
 ?>

@@ -82,28 +82,75 @@ function del_cat(){
     }
 
 }
-function confirm_query (){
+function confirm_query()
+{
     global $connection;
-    if ( isset($_POST['submit'])){
+    if (isset($_POST['submit'])) {
         $post_image = $_FILES['post_image']['name'];
         $post_temp_image = $_FILES['post_image']['tmp_name'];
-        $post_date = date('Y-m-d');
+        //$post_date = date('d-m-Y');
         $post_commentary_count = 5;
         $post_status = 'draft';
-        move_uploaded_file($post_temp_image,"../images/$post_image");
-      
-    }
+        move_uploaded_file($post_temp_image, "../images/$post_image");
 
-    $query = "INSERT INTO posts(post_category_id,post_title,post_author,post_date,post_image,post_content,post_tags,post_comment_count,post_status) ";
-    $query .="VALUES({$_POST['post_category_id']},'{$_POST['post_title']}','{$_POST['post_author']}',$post_date, ";
-    $query .= "'{$post_image}','{$_POST['post_content']}', '{$_POST['post_tags']}' ,{$post_commentary_count},'{$post_status}' )";
 
-    $res = mysqli_query($connection, $query);
-    if ( !$res){
-        echo mysqli_error($connection);
-    }
-    else{
-        header("Location: posts.php?source=post_all");
+        $query = "INSERT INTO posts(post_category_id,post_title,post_author,post_date,post_image,post_content,post_tags,post_comment_count,post_status) ";
+        $query .= "VALUES({$_POST['post_category_id']},'{$_POST['post_title']}','{$_POST['post_author']}',CURDATE(), ";
+        $query .= "'{$post_image}','{$_POST['post_content']}', '{$_POST['post_tags']}' ,{$post_commentary_count},'{$post_status}' )";
+
+        $res = mysqli_query($connection, $query);
+        if (!$res) {
+            echo mysqli_error($connection);
+        } else {
+            header("Location: posts.php?source=post_all");
+        }
+
     }
 }
+function del_post(){
+    global $connection;
+        if ( isset($_GET['del'])){
+            $query = "DELETE FROM posts WHERE post_id={$_GET['del']}";
+            $res = mysqli_query($connection,$query);
+
+            if (!$res){
+                echo mysqli_error($connection);
+            }
+            else{
+                $_SESSION['message']= "Post Deleted Succesfuly";
+                header("Location: posts.php?source=post_all");
+            }
+        }
+
+    }
+function edit_query()
+{
+    global $connection;
+    if (isset($_GET['edit'])) {
+        if (isset($_POST['edit'])){
+        $post_image = $_FILES['post_image']['name'];
+        $post_temp_image = $_FILES['post_image']['tmp_name'];
+        //$post_date = date('d-m-Y');
+        $post_commentary_count = 5;
+        $post_status = 'draft';
+        move_uploaded_file($post_temp_image, "../images/$post_image");
+
+        $update_query = "UPDATE posts SET post_category_id={$_POST['post_category_id']},post_title='{$_POST['post_title']}'";
+        $update_query .= ",post_author='{$_POST['post_author']}',post_date=CURDATE(),post_image='{$post_image}',post_content='{$_POST['post_content']}'";
+        $update_query .=  ",post_tags='{$_POST['post_tags']}',post_comment_count={$post_commentary_count},post_status='{$post_status}'";
+        $update_query .=  "WHERE post_id= {$_GET['edit']}";
+
+
+        $res = mysqli_query($connection, $update_query);
+        if (!$res) {
+            echo mysqli_error($connection);
+        } else {
+            $_SESSION['message']= "Post Updated Succesfuly";
+            header("Location: posts.php?source=post_all");
+        }
+        }
+    }
+}
+
+
 ?>
