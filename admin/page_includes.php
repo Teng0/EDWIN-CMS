@@ -13,6 +13,9 @@ switch ($source) {
     case 'post_edit';
         include "includes/posts/edit_post.php";
         break;
+    case 'comments_all';
+        include "includes/comments/view_all_comments.php";
+        break;
     default:'post_all';
 }
 ?>
