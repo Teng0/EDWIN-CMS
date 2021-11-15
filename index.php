@@ -22,7 +22,7 @@
 
                 <!-- First Blog Post -->
                 <?php
-                $query = "SELECT * FROM posts";
+                $query = "SELECT * FROM posts WHERE post_status='published'";
                 $res = mysqli_query($connection,$query);
                 while ($row = mysqli_fetch_assoc($res)){ ?>
 

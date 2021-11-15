@@ -179,14 +179,16 @@
                 <a href="javascript:;" data-toggle="collapse" data-target="#demo3"><i class="fa fa-fw fa-arrows-v"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="demo3" class="collapse">
                     <li>
-                        <a href="#">Add User</a>
+                        <a href="posts.php?source=users_all">All User</a>
                     </li>
                     <li>
-                        <a href="#">Delete User</a>
+                        <a href="posts.php?source=add_user">Add User</a>
                     </li>
+
                 </ul>
             </li>
-            <li class="active">
+<!--            <li class="active2">-->
+            <li>
                 <a href="blank-page.html"><i class="fa fa-fw fa-file"></i> Comments</a>
             </li>
 

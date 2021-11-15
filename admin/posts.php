@@ -5,6 +5,7 @@ include_once "../includes/db.php";
 //include "funcitons.php";
 include "functions/category/functions.php";
 include "functions/posts/functions.php";
+include "functions/users/functions.php";
 ?>
 
     <div id="wrapper">

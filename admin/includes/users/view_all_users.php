@@ -10,20 +10,18 @@
         <thead>
         <tr>
             <th>ID</th>
-            <th>TiTle</th>
-            <th>Author</th>
-            <th>Category</th>
-            <th>Date</th>
-            <th>Images</th>
-            <th>Tags</th>
-            <th>Comment_count</th>
-            <th>Status</th>
-            <th>DELETE</th>
-            <th>EDIT</th>
+            <th>username</th>
+            <th>firstName</th>
+            <th>lastName</th>
+            <th>email</th>
+            <th>userImage</th>
+            <th>role</th>
+            <th>Delete</th>
+            <th>Edit</th>
         </tr>
         </thead>
         <tbody>
-        <?php print_all_posts(); ?>
+        <?php print_all_users(); ?>
         </tbody>
     </table>
 </div>

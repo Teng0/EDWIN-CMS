@@ -16,6 +16,15 @@ switch ($source) {
     case 'comments_all';
         include "includes/comments/view_all_comments.php";
         break;
+    case 'users_all';
+        include "includes/users/view_all_users.php";
+        break;
+    case 'add_user';
+        include "includes/users/add_user.php";
+        break;
+    case 'dit_edit';
+        include "includes/users/edit_user.php";
+        break;
     default:'post_all';
 }
 ?>

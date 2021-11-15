@@ -1,35 +1,32 @@
 <?php
-function add_user_query()
+function confirm_users_query()
 {
     global $connection;
     if (isset($_POST['submit'])) {
-        $userImage = $_FILES['user_image']['name'];
-        $post_temp_image = $_FILES['user_image']['tmp_name'];
+        $post_image = $_FILES['post_image']['name'];
+        $post_temp_image = $_FILES['post_image']['tmp_name'];
         //$post_date = date('d-m-Y');
-
-        $post_status = 'user';
-        move_uploaded_file($post_temp_image, "../images/$userImage");
-
-
-
-        $query ="INSERT INTO `users` ( `username`, `firstName`, `lastName`, `email`, `userImage`, `role`, `randSalt`) VALUES ('{$_POST['username']}', '{$_POST['firstName']}', '{$_POST['lastName']}', '{$_POST['email']}', '$userImage', '{$_POST['role']}', 'SuperSecret')";
+        $post_commentary_count = 5;
+        $post_status = 'draft';
+        move_uploaded_file($post_temp_image, "../images/$post_image");
 
 
-        //var_dump($_POST);
-
+        $query = "INSERT INTO posts(post_category_id,post_title,post_author,post_date,post_image,post_content,post_tags,post_comment_count,post_status) ";
+        $query .= "VALUES({$_POST['post_category_id']},'{$_POST['post_title']}','{$_POST['post_author']}',CURDATE(), ";
+        $query .= "'{$post_image}','{$_POST['post_content']}', '{$_POST['post_tags']}' ,{$post_commentary_count},'{$post_status}' )";
 
         $res = mysqli_query($connection, $query);
         if (!$res) {
             echo mysqli_error($connection);
         } else {
-            $_SESSION['message'] = "User Added Succesfuly";
-            header("Location: posts.php?source=users_all");
+            $_SESSION['message'] = "Post Added Succesfuly";
+            header("Location: posts.php?source=post_all");
         }
 
     }
 }
 
-function print_all_posts(){
+function print_all_users(){
 
     global $connection;
 
@@ -41,28 +38,22 @@ function print_all_posts(){
     $res = mysqli_query($connection, $query);
     while($row = mysqli_fetch_assoc($res)){
         echo "<tr>";
-        echo "<td>{$row['post_id']}</td>";
-        echo "<td>{$row['post_title']}</td>";
-        echo "<td>{$row['post_author']}</td>";
-        print_cat_title_in_all_posts($row['post_category_id']);
-        echo "<td>{$row['post_date']}</td>";
-        echo "<td><img class='img-responsive' src='../images/{$row['post_image']}'style='width: 60px; height: 60px' alt=''></td>";
-        echo "<td>{$row['post_tags']}</td>";
-        echo "<td>{$row['post_comment_count']}</td>";
-        if ($row['post_status']=="published"){
-            echo "<td><a href='posts.php?source=post_all&unappr={$row['post_id']}'>{$row['post_status']}</a></td>";
-        }else {
-            echo "<td><a href='posts.php?source=post_all&appr={$row['post_id']}'>{$row['post_status']}</a></td>";
-        }
-        echo "<td><a href='posts.php?source=post_all&del={$row['post_id']}'>Delete</a></td>";
-        echo "<td><a href='posts.php?source=post_edit&edit={$row['post_id']}'>Edit</a></td>";
+        echo "<td>{$row['user_id']}</td>";
+        echo "<td>{$row['username']}</td>";
+        echo "<td>{$row['firstName']}</td>";
+        echo "<td>{$row['lastName']}</td>";
+        echo "<td>{$row['email']}</td>";
+        echo "<td>{$row['userImage']}</td>";
+        echo "<td>{$row['role']}</td>";
+        echo "<td><a href='posts.php?source=post_all&userDel={$row['user_id']}'>Delete</a></td>";
+        echo "<td><a href='posts.php?source=post_edit&edit={$row['user_id']}'>Edit</a></td>";
         echo "<tr>";
     }
 
 
 }
 
-function del_post(){
+function del_user(){
     global $connection;
     if ( isset($_GET['del'])){
         $query = "DELETE FROM posts WHERE post_id={$_GET['del']}";
@@ -77,7 +68,7 @@ function del_post(){
     }
 
 }
-function edit_posts_query()
+function edit_user_query()
 {
     global $connection;
     if (isset($_GET['edit'])) {
@@ -108,7 +99,7 @@ function edit_posts_query()
         }
     }
 }
-function print_all_cat_in_edit(){
+function print_all_user_cat_in_edit(){
     global $connection;
     $query = "SELECT * FROM categories";
     $select_all_cat = mysqli_query($connection,$query);
@@ -116,7 +107,7 @@ function print_all_cat_in_edit(){
         echo " <option value='{$row_cat['cat_id']}'>{$row_cat['cat_title']}</option>";
     }
 }
-function print_cat_title_in_all_posts($cat_id){
+function print_cat_title_in_all_users($cat_id){
     global $connection;
     $query = "SELECT * FROM categories WHERE cat_id={$cat_id}";
     $select_all_cat = mysqli_query($connection,$query);
@@ -124,7 +115,7 @@ function print_cat_title_in_all_posts($cat_id){
     echo "<td>{$row_cat['cat_title']}</td>";
 
 }
-function approve_post(){
+function approve_user(){
     global $connection;
     if (isset($_GET['appr'])){
         $comment_status = 'published';
@@ -140,7 +131,7 @@ function approve_post(){
     }
 
 }
-function unapprove_post(){
+function unapprove_user(){
     global $connection;
     if (isset($_GET['unappr'])){
         $comment_status = 'draft';
